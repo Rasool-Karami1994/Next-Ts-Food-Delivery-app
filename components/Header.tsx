@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useStore } from "../store";
 
 const Header: React.FC = () => {
   const [isDark, setIsDark] = useState<boolean>(false);
+  const cart = useStore((state) => state.cart);
+  const theme = useStore((state) => state.theme);
+  const changeTheme = useStore((state) => state.changeTheme);
 
+  console.log(cart);
+  const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark") {
-        document.documentElement.classList.add("dark");
+      if (theme === "dark") {
         setIsDark(true);
       } else {
-        document.documentElement.classList.remove("dark");
         setIsDark(false);
       }
     }
   }, []);
 
   const toggleDarkMode = () => {
-    if (document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+    if (theme === "dark") {
+      changeTheme("light");
+
       setIsDark(false);
     } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setIsDark(true);
+      changeTheme("dark");
     }
   };
 
@@ -75,6 +76,7 @@ const Header: React.FC = () => {
         </button>
 
         <Link
+          legacyBehavior
           href="/cart"
           className="relative p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none hover:scale-105"
         >
@@ -92,9 +94,11 @@ const Header: React.FC = () => {
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1 2m1-2l-1-2m12 2l1 2m-1-2l1-2M5 21h2a2 2 0 004 0"
             />
           </svg>
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-            3
-          </span>
+          {totalCartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              {totalCartCount}
+            </span>
+          )}
         </Link>
       </div>
     </header>

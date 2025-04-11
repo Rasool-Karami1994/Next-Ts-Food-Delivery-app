@@ -1,18 +1,14 @@
 // pages/index.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
-
+import { useStore } from "../store";
 interface Product {
   id: string;
   title: string;
   image: string;
   price: number;
-}
-
-interface CartItem extends Product {
-  quantity: number;
 }
 
 const categories = [
@@ -172,61 +168,15 @@ const titleHandler = (title: string) => {
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("appetizer");
-  const [favorites, setFavorites] = useState<Product[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    const favData = localStorage.getItem("favorites");
-    if (favData) {
-      setFavorites(JSON.parse(favData));
-    }
-    const cartData = localStorage.getItem("cart");
-    if (cartData) {
-      setCart(JSON.parse(cartData));
-    }
-  }, []);
-
-  const updateFavoritesStorage = (newFav: Product[]) => {
-    localStorage.setItem("favorites", JSON.stringify(newFav));
-  };
-
-  const updateCartStorage = (newCart: CartItem[]) => {
-    localStorage.setItem("cart", JSON.stringify(newCart));
-  };
-
-  const toggleFavorite = (product: Product) => {
-    const exists = favorites.find((item) => item.id === product.id);
-    if (exists) {
-      const newFav = favorites.filter((item) => item.id !== product.id);
-      setFavorites(newFav);
-      updateFavoritesStorage(newFav);
-    } else {
-      const newFav = [...favorites, product];
-      setFavorites(newFav);
-      updateFavoritesStorage(newFav);
-    }
-  };
-
-  const addToCart = (product: Product) => {
-    const index = cart.findIndex((item) => item.id === product.id);
-    if (index > -1) {
-      const newCart = [...cart];
-      newCart[index].quantity += 1;
-      setCart(newCart);
-      updateCartStorage(newCart);
-    } else {
-      const newCart = [...cart, { ...product, quantity: 1 }];
-      setCart(newCart);
-      updateCartStorage(newCart);
-    }
-  };
-
-  let productsToDisplay: Product[] = [];
-  if (selectedCategory === "favorites") {
-    productsToDisplay = favorites;
-  } else {
-    productsToDisplay = productsData[selectedCategory] || [];
-  }
+  const favorites = useStore((state) => state.favorites);
+  const toggleFavorite = useStore((state) => state.toggleFavorite);
+  const addToCart = useStore((state) => state.addToCart);
+  const cart = useStore((state) => state.cart);
+  console.log(cart);
+  const productsToDisplay: Product[] =
+    selectedCategory === "favorites"
+      ? favorites
+      : productsData[selectedCategory] || [];
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-4">
