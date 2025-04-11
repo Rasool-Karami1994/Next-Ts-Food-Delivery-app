@@ -31,13 +31,14 @@ const Header: React.FC = () => {
 
   return (
     <header className="flex items-center justify-between  p-4 bg-white dark:bg-gray-800 border-b border-gray-200">
-      <div className="text-xl font-bold text-gray-800 dark:text-white">
-فودفودی      </div>
+      <div className="text-2xl font-bold text-orange-400 dark:text-orange-200">
+        Foody
+      </div>
 
       <div className="flex items-center space-x-4">
         <button
           onClick={toggleDarkMode}
-          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none ml-3"
+          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none ml-3 hover:scale-105"
           aria-label="Toggle Dark Mode"
         >
           {isDark ? (
@@ -75,11 +76,11 @@ const Header: React.FC = () => {
 
         <Link
           href="/cart"
-          className="relative p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none"
+          className="relative p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none hover:scale-105"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-800 dark:text-white"
+            className="h-6 w-6 text-gray-800 dark:text-yellow-500"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
