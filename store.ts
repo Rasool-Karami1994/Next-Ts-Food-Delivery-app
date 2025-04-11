@@ -15,9 +15,7 @@ export interface CartItem extends Product {
 
 interface StoreState {
   favorites: Product[];
-  theme: string;
   cart: CartItem[];
-  changeTheme: (newTheme: string) => void;
   toggleFavorite: (product: Product) => void;
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
@@ -26,12 +24,9 @@ interface StoreState {
 export const useStore = create<StoreState, [["zustand/persist", StoreState]]>(
   persist(
     (set, get) => ({
-      theme: "light",
       favorites: [],
       cart: [],
-      changeTheme: (newTheme: string) => {
-        set({ theme: newTheme });
-      },
+
       toggleFavorite: (product: Product) => {
         const exists = get().favorites.find((item) => item.id === product.id);
         if (exists) {
