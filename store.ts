@@ -26,7 +26,6 @@ export const useStore = create<StoreState, [["zustand/persist", StoreState]]>(
     (set, get) => ({
       favorites: [],
       cart: [],
-
       toggleFavorite: (product: Product) => {
         const exists = get().favorites.find((item) => item.id === product.id);
         if (exists) {

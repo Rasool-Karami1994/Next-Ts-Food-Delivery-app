@@ -1,11 +1,25 @@
 import { useStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useState } from "react";
+type DiscountState = {
+  showInput: boolean;
+  code: string;
+  applied: boolean;
+  error: string;
+};
 const Cart: React.FC = () => {
   const cart = useStore((state) => state.cart);
   const addToCart = useStore((state) => state.addToCart);
   const removeFromCart = useStore((state) => state.removeFromCart);
+  const [discount, setDiscount] = useState<DiscountState>({
+    showInput: false,
+    code: "",
+    applied: false,
+    error: "",
+  });
+
+  const discountAmount = discount?.applied ? 50000 : 0;
 
   const value = cart.reduce(
     (sum, item) =>
@@ -13,7 +27,20 @@ const Cart: React.FC = () => {
     0
   );
   const deliveryFee = 35000;
-  const finalValue = value + deliveryFee;
+  const finalValue = value + deliveryFee - discountAmount;
+
+  const checkDiscountCode = () => {
+    const discountRegex = /^discount$/i;
+    if (discountRegex.test(discount?.code)) {
+      setDiscount((prevState) => {
+        return { ...prevState, showInput: false, applied: true, error: "" };
+      });
+    } else {
+      setDiscount((prevState) => {
+        return { ...prevState, error: "کد تخفیف وارد شده صحیح نیست!" };
+      });
+    }
+  };
 
   if (cart?.length > 0) {
     return (
@@ -145,10 +172,59 @@ const Cart: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="flex h-fit flex-col items-center justify-end gap-3 px-6 pb-6 pt-2">
-              <button className="p-3 text-xs font-bold text-gray-400 dark:text-gray-200 duration-200 hover:text-blue-500">
-                کد تخفیف دارم!
-              </button>
+            <div className="flex flex-col items-center justify-end gap-3 px-6 pb-6 pt-2">
+              {!discount?.applied && !discount?.showInput && (
+                <button
+                  onClick={() =>
+                    setDiscount((prevState) => {
+                      return { ...prevState, showInput: true };
+                    })
+                  }
+                  className="p-3 text-xs font-bold text-gray-400 dark:text-gray-200 duration-200 hover:scale-105"
+                >
+                  کد تخفیف دارم!
+                </button>
+              )}
+              {discount?.showInput && !discount?.applied && (
+                <div className="flex w-full flex-col items-center gap-3">
+                  <input
+                    type="text"
+                    value={discount?.code}
+                    onChange={(e) => {
+                      setDiscount((prevState) => {
+                        return {
+                          ...prevState,
+                          error: "",
+                          code: e.target.value,
+                        };
+                      });
+                    }}
+                    placeholder="کد تخفیف را وارد کنید (مقدار صحیح: discount)"
+                    className={`w-full rounded-xl p-2 text-sm border ${
+                      discount?.error
+                        ? "border-red-500 dark:border-red-500"
+                        : "border-gray-300 dark:border-gray-700"
+                    } dark:bg-gray-700 dark:text-white`}
+                  />
+                  {discount?.error ? (
+                    <span className="text-xs text-red-500">
+                      {discount?.error}
+                    </span>
+                  ) : null}
+
+                  <button
+                    onClick={checkDiscountCode}
+                    className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-gray-400 p-3 text-white duration-200 hover:bg-gray-500"
+                  >
+                    بررسی کد تخفیف
+                  </button>
+                </div>
+              )}
+              {discount?.applied && !discount?.showInput ? (
+                <p className="p-3 text-xs font-bold text-gray-400 dark:text-gray-200 ">
+                  کد تخفیف اعمال شد
+                </p>
+              ) : null}
               <Link
                 href="/checkout"
                 className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
@@ -175,7 +251,7 @@ const Cart: React.FC = () => {
             سبد خرید شما خالیه!
           </p>
           <Link
-            href={"/"}
+            href="/"
             className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
           >
             <span className="font-bold">بریم خرید</span>
