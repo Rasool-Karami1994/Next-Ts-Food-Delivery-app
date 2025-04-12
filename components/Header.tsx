@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const Header: React.FC = () => {
   const cart = useStore((state) => state.cart);
 
-  // cart.reduce((sum, item) => sum + item.quantity, 0);
+  const badgeValue = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const [isDark, setIsDark] = useState<boolean>(false);
   useEffect(() => {
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
         <div className="relative  p-2 rounded-full bg-gray-200 dark:bg-gray-700 focus:outline-none hover:scale-105 cursor-pointer">
           {cart?.length > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-              {cart?.length}
+              {badgeValue}
             </span>
           )}
           <Link legacyBehavior href="/cart">
