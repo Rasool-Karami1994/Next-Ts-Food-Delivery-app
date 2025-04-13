@@ -16,6 +16,8 @@ export interface CartItem extends Product {
 interface StoreState {
   favorites: Product[];
   cart: CartItem[];
+  finalFee: string;
+  setFinalFee: (newValue: string) => void;
   toggleFavorite: (product: Product) => void;
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
@@ -26,6 +28,8 @@ export const useStore = create<StoreState, [["zustand/persist", StoreState]]>(
     (set, get) => ({
       favorites: [],
       cart: [],
+      finalFee: "",
+      setFinalFee: (newValue) => set({ finalFee: newValue }),
       toggleFavorite: (product: Product) => {
         const exists = get().favorites.find((item) => item.id === product.id);
         if (exists) {

@@ -2,8 +2,9 @@ import { useStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import {useState } from "react";
 import { motion } from "framer-motion";
+import StickyBackButton from "@/components/StickyBackButton";
 
 type DiscountState = {
   showInput: boolean;
@@ -15,6 +16,8 @@ const Cart: React.FC = () => {
   const cart = useStore((state) => state.cart);
   const addToCart = useStore((state) => state.addToCart);
   const removeFromCart = useStore((state) => state.removeFromCart);
+  const setFinalFee = useStore((state) => state.setFinalFee);
+
   const [discount, setDiscount] = useState<DiscountState>({
     showInput: false,
     code: "",
@@ -47,15 +50,14 @@ const Cart: React.FC = () => {
   const router = useRouter();
 
   const navigateToCheckout = () => {
-    router.push({
-      pathname: "/checkout",
-      query: { paymentValue: finalValue },
-    });
+    setFinalFee(`${finalValue}`);
   };
-  if (cart?.length > 0) {
-    return (
-      <div className="mx-auto p-4 bg-white dark:bg-gray-900 min-h-screen px-4 lg:px-10">
-        <div className="mt-10 grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-3">
+
+  return (
+    <div className="mx-auto  bg-white dark:bg-gray-900 min-h-screen ">
+      <StickyBackButton href="/" />
+      {cart?.length > 0 ? (
+        <div className="mt-10 grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-3 px-4 lg:px-10">
           <h2 className="justify-self-center font-extrabold text-2xl text-gray-600 dark:text-white md:col-span-2 md:justify-self-start lg:col-span-3">
             سبد خرید شما
           </h2>
@@ -245,55 +247,49 @@ const Cart: React.FC = () => {
                     کد تخفیف اعمال شد
                   </p>
                 ) : null}
-                {/* <Link
-                href="/checkout"
-                className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
-              > */}
-                <button
+
+                <Link
+                  href="/checkout"
                   onClick={navigateToCheckout}
                   className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
                 >
-                  {" "}
                   <span className="font-bold">پرداخت</span>
-                </button>
-                {/* </Link> */}
+                </Link>
               </div>
             </div>
           </motion.div>
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="w-full"
-      >
-        <div className="mx-auto p-4 bg-white dark:bg-gray-900 min-h-screen px-4 lg:px-10">
-          <div className="mx-auto w-[70%] md:w-[30%] bg-gray-200 dark:bg-gray-600 max-h-min border rounded-xl shadow-md py-[40px] px-4 flex flex-col justify-start items-center mt-20 gap-10">
-            <Image
-              className="w-80 h-[80px] max-h-[80px] text-gray-800 dark:text-gray-200"
-              src="/images/gray-empty.svg"
-              height={40}
-              width={40}
-              alt="empty-cart"
-            />
-            <p className="text-gray-600 dark:text-gray-200">
-              سبد خرید شما خالیه!
-            </p>
-            <Link
-              href="/"
-              className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
-            >
-              <span className="font-bold">بریم خرید</span>
-            </Link>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          className="w-full"
+        >
+          <div className="mx-auto p-4 bg-white dark:bg-gray-900 min-h-screen px-4 lg:px-10">
+            <div className="mx-auto w-[70%] md:w-[30%] bg-gray-200 dark:bg-gray-600 max-h-min border rounded-xl shadow-md py-[40px] px-4 flex flex-col justify-start items-center mt-20 gap-10">
+              <Image
+                className="w-80 h-[80px] max-h-[80px] text-gray-800 dark:text-gray-200"
+                src="/images/gray-empty.svg"
+                height={40}
+                width={40}
+                alt="empty-cart"
+              />
+              <p className="text-gray-600 dark:text-gray-200">
+                سبد خرید شما خالیه!
+              </p>
+              <Link
+                href="/"
+                className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-orange-400 p-3 text-white duration-200 hover:bg-orange-500"
+              >
+                <span className="font-bold">بریم خرید</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    );
-  }
+        </motion.div>
+      )}
+    </div>
+  );
 };
 
 export default Cart;

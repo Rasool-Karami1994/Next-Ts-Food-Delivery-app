@@ -1,6 +1,4 @@
-// pages/payment.tsx
 import React, { useState } from "react";
-import Link from "next/link";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
@@ -82,33 +80,7 @@ const PaymentPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* هدر استیکی */}
-      <div className="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md">
-        <Link
-          href="/cart"
-          className="flex items-center justify-center px-4 py-3 w-full"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-800 dark:text-white absolute right-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-          <span className="text-lg font-semibold text-gray-800 dark:text-white">
-            ادامه خرید
-          </span>
-        </Link>
-      </div>
-
-      {/* محتوا */}
+   
       <div className="container mx-auto px-4 py-6 space-y-6">
         {/* کارت شیوه تحویل سفارش */}
         <div className="w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">

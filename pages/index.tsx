@@ -1,4 +1,3 @@
-// pages/index.tsx
 import { useState } from "react";
 import { motion } from "framer-motion";
 import CategoryCard from "@/components/CategoryCard";
