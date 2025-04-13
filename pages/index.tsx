@@ -222,9 +222,9 @@ const HomePage: React.FC = () => {
             {productsToDisplay.map((product, index) => (
               <motion.div
                 key={product.id}
-                initial={{ opacity: 0, y: 50 }} // حالت اولیه انیمیشن
-                animate={{ opacity: 1, y: 0 }} // حالت نهایی انیمیشن
-                transition={{ duration: 1, delay: index * 0.1 }} // با تاخیر اندکی برای هر آیتم
+                initial={{ opacity: 0, y: 50 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 1, delay: index * 0.1 }} 
               >
                 <ProductCard
                   key={product.id}
