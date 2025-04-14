@@ -1,9 +1,9 @@
 ---
 
-```markdown
-# Next.js Test Application
 
-This is a sample application built with Next.js 14 to demonstrate modern web development techniques and best practices. The project takes advantage of Next.js features such as Incremental Static Regeneration (ISR) and dynamic imports for improved performance. It also uses Zustand for state management (with persist capabilities) and Tailwind CSS for responsive design and dark mode support.
+# Next.js Food-Delivery-Platform Application
+
+application built with Next.js 14 to demonstrate modern web development techniques and best practices. The project takes advantage of Next.js features such as Incremental Static Regeneration (ISR) and dynamic imports for improved performance. It also uses Zustand for state management (with persist capabilities) and Tailwind CSS for responsive design and dark mode support.
 
 ## Features
 
@@ -13,12 +13,13 @@ This is a sample application built with Next.js 14 to demonstrate modern web dev
 - **Dynamic Imports:** Implements code splitting out of the box to reduce bundle size and improve load times.
 - **ISR (Incremental Static Regeneration):** Rebuilds static pages periodically to ensure data freshness without compromising speed.
 - **Optimized Images:** Uses the built-in Next.js Image component for automatic image optimization.
- ```
+
+
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or later)
+- Node.js (v18 or later)
 - npm or yarn
 
 ### Installation
@@ -59,11 +60,12 @@ yarn dev
 
 Open your browser and visit [http://localhost:3000](http://localhost:3000) to see the application in action.
 
+
 ## Deployment
 
 This project is ready for deployment on platforms like Vercel. You can deploy it for free and take advantage of Next.js optimizations.
 
-**Project Online:** [Insert Deployment URL Here]
+## **Project Online address:** [https://next-ts-food-delivery-app.vercel.app/]
 
 ## Additional Information
 
