@@ -1,7 +1,6 @@
 import { useStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import StickyBackButton from "@/components/StickyBackButton";
@@ -46,7 +45,6 @@ const Cart: React.FC = () => {
       });
     }
   };
-  const router = useRouter();
 
   const navigateToCheckout = () => {
     setFinalFee(`${finalValue}`);
@@ -63,7 +61,7 @@ const Cart: React.FC = () => {
 
           <div className="flex w-full flex-col items-center justify-start gap-7 lg:col-span-2">
             {cart?.map((item) => (
-              <CartItems cartItem={item} key={item?.id}/>
+              <CartItems cartItem={item} key={item?.id} />
             ))}
           </div>
           <motion.div
