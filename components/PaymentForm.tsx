@@ -50,12 +50,9 @@ const PaymentPage: React.FC<PaymentPage> = ({ setDisableFinishButton }) => {
     setPaymentMethod(e.target.value);
   };
 
-  const handleDeliveryMethod = useCallback(
-    (value: DeliveryMethod) => {
-      setDeliveryMethod(value);
-    },
-    [deliveryMethod]
-  );
+  const handleDeliveryMethod = useCallback((value: DeliveryMethod) => {
+    setDeliveryMethod(value);
+  }, []);
   useEffect(() => {
     if (
       selectedOption?.time &&

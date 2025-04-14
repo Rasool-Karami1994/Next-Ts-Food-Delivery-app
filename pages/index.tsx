@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import CategoryCard from "@/components/CategoryCard";
-import ProductCard from "@/components/ProductCard";
 import { useStore } from "../store";
 import { GetStaticProps } from "next";
+import dynamic from "next/dynamic";
 
 interface Category {
   id: string;
@@ -49,12 +48,25 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
   const addToCart = useStore((state) => state.addToCart);
-  const cart = useStore((state) => state.cart);
   const productsToDisplay: Product[] =
     selectedCategory === "favorites"
       ? favorites
       : productsData[selectedCategory] || [];
 
+  const CategoryCard = dynamic(() => import("@/components/CategoryCard"), {
+    loading: () => (
+      <p className="text-center text-gray-500 dark:text-gray-300">
+        در حال بارگذاری...
+      </p>
+    ),
+  });
+  const ProductCard = dynamic(() => import("@/components/ProductCard"), {
+    loading: () => (
+      <p className="text-center text-gray-500 dark:text-gray-300">
+        در حال بارگذاری...
+      </p>
+    ),
+  });
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-4">
       <div className="mb-8">
@@ -118,8 +130,11 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
     </div>
   );
 };
+
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const categories = require("../data/categories.json");
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const productsData = require("../data/products.json");
 
   return {
