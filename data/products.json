@@ -1,0 +1,102 @@
+{
+  "appetizer": [
+    {
+      "id": "app-1",
+      "title": "سالاد فصل",
+      "image": "/images/seaseon-salad.webp",
+      "price": 220000
+    },
+    {
+      "id": "app-3",
+      "title": "سوپ",
+      "image": "/images/Desser.jpg",
+      "price": 280000
+    },
+    {
+      "id": "app-2",
+      "title": "سالاد چینی",
+      "image": "/images/preFood.jpg",
+      "price": 300000
+    }
+  ],
+  "dessert": [
+    {
+      "id": "des-1",
+      "title": "کیک میوه ایی",
+      "image": "/images/fr-cake.jpg",
+      "price": 160000
+    },
+    {
+      "id": "des-2",
+      "title": "کاپ کیک",
+      "image": "/images/cup-cake.jfif",
+      "price": 80000
+    },
+    {
+      "id": "des-3",
+      "title": "تیرامیسو",
+      "image": "/images/tira.webp",
+      "price": 190000
+    }
+  ],
+  "persian": [
+    {
+      "id": "per-1",
+      "title": "سینی کباب",
+      "image": "/images/kebab.jpg",
+      "price": 450000
+    },
+    {
+      "id": "per-2",
+      "title": "چلو گوشت",
+      "image": "/images/chelo.jpg",
+      "price": 320000
+    },
+    {
+      "id": "per-3",
+      "title": "کباب بره",
+      "image": "/images/jooj.jpg",
+      "price": 380000
+    }
+  ],
+  "fastfood": [
+    {
+      "id": "fast-1",
+      "title": "برگر",
+      "image": "/images/sandwich.jpg",
+      "price": 270000
+    },
+    {
+      "id": "fast-2",
+      "title": "پاستا",
+      "image": "/images/pasta.jpg",
+      "price": 235000
+    },
+    {
+      "id": "fast-3",
+      "title": "پیتزا",
+      "image": "/images/pizza.jpg",
+      "price": 280000
+    }
+  ],
+  "drink": [
+    {
+      "id": "drink-1",
+      "title": "کوکا کولا",
+      "image": "/images/cooca.webp",
+      "price": 25000
+    },
+    {
+      "id": "drink-2",
+      "title": "شربت سنتی",
+      "image": "/images/syr.avif",
+      "price": 15000
+    },
+    {
+      "id": "drink-3",
+      "title": "سودا",
+      "image": "/images/soda.jpg",
+      "price": 100000
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 interface StickyBackButtonProps {
   href: string;
 }
@@ -32,4 +33,4 @@ const StickyBackButton = (props: StickyBackButtonProps) => {
   );
 };
 
-export default StickyBackButton;
+export default React.memo(StickyBackButton);

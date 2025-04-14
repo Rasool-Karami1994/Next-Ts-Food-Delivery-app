@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 
 interface CategoryCardProps {
   category: { id: string; title: string; image: string };
@@ -24,6 +25,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         width={227}
         height={127}
         className="w-full h-32 object-cover"
+        priority
       />
       <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
         <span className="text-white font-semibold">{category.title}</span>
@@ -32,4 +34,4 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   );
 };
 
-export default CategoryCard;
+export default React.memo(CategoryCard);

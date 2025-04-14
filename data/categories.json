@@ -1,0 +1,32 @@
+[
+  {
+    "id": "appetizer",
+    "title": "پیش غذا",
+    "image": "/images/preFood.jpg"
+  },
+  {
+    "id": "dessert",
+    "title": "دسر",
+    "image": "/images/tira.webp"
+  },
+  {
+    "id": "persian",
+    "title": "غذاایرانی",
+    "image": "/images/Iran.jpg"
+  },
+  {
+    "id": "fastfood",
+    "title": "فست فود",
+    "image": "/images/pizza.jpg"
+  },
+  {
+    "id": "drink",
+    "title": "نوشیدنی",
+    "image": "/images/pasta.jpg"
+  },
+  {
+    "id": "favorites",
+    "title": "علاقه مندی ها",
+    "image": "/images/fav.jpg"
+  }
+]

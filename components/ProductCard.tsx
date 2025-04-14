@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 interface Product {
   id: string;
   title: string;
@@ -27,6 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           width={190}
           height={150}
           className="w-full h-40 object-cover rounded-t-lg"
+          priority
         />
         <button
           onClick={() => onToggleFavorite(product)}
@@ -84,4 +86,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
     </div>
   );
 };
-export default ProductCard;
+export default React.memo(ProductCard);

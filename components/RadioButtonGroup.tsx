@@ -15,7 +15,6 @@ interface RadioButtonGroup {
   setSelectedOption: (item: makedTimeType) => void;
 }
 export default function RadioButtonGroup(props: RadioButtonGroup) {
-  // Define radio options
   const options: RadioOption[] = [
     { id: "1", value: "از 11:30 تا 12:00", label: "از 11:30 تا 12:00" },
     { id: "2", value: "از 12:00 تا 12:30", label: "از 12:00 تا 12:30" },

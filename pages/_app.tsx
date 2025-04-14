@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Fragment>
       <Head>
-        <title>فود-دلیوری</title>
+        <title>فوددی</title>
       </Head>
       <Layout>
         <ToastContainer

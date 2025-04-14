@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
 import { useStore } from "../store";
+import { GetStaticProps } from "next";
+
+interface Category {
+  id: string;
+  title: string;
+  image: string;
+}
+
 interface Product {
   id: string;
   title: string;
@@ -10,141 +18,12 @@ interface Product {
   price: number;
 }
 
-const categories = [
-  {
-    id: "appetizer",
-    title: "پیش غذا",
-    image: "/images/preFood.jpg",
-  },
-  {
-    id: "dessert",
-    title: "دسر",
-    image: "/images/teeraa.jpg",
-  },
-  {
-    id: "persian",
-    title: "غذاایرانی",
-    image: "/images/Iran.jpg",
-  },
-  {
-    id: "fastfood",
-    title: "فست فود",
-    image: "/images/pizza.jpg",
-  },
-  {
-    id: "drink",
-    title: "نوشیدنی",
-    image: "/images/pasta.jpg",
-  },
-  {
-    id: "favorites",
-    title: "علاقه مندی ها",
-    image: "/images/fav.jpg",
-  },
-];
-
-const productsData: { [key: string]: Product[] } = {
-  appetizer: [
-    {
-      id: "app-1",
-      title: "سالاد فصل",
-      image: "/images/seaseon-salad.jpg",
-      price: 220000,
-    },
-    {
-      id: "app-3",
-      title: "سوپ",
-      image: "/images/Desser.jpg",
-      price: 280000,
-    },
-    {
-      id: "app-2",
-      title: "سالاد چینی",
-      image: "/images/preFood.jpg",
-      price: 300000,
-    },
-  ],
-  dessert: [
-    {
-      id: "des-1",
-      title: "کیک میوه ایی",
-      image: "/images/fr-cake.jpg",
-      price: 160000,
-    },
-    {
-      id: "des-2",
-      title: "کاپ کیک",
-      image: "/images/cup-cake.jfif",
-      price: 80000,
-    },
-    {
-      id: "des-3",
-      title: "تیرامیسو",
-      image: "/images/teeraa.jpg",
-      price: 190000,
-    },
-  ],
-  persian: [
-    {
-      id: "per-1",
-      title: "سینی کباب",
-      image: "/images/kebab.jpg",
-      price: 450000,
-    },
-    {
-      id: "per-2",
-      title: "چلو گوشت",
-      image: "/images/chelo.jpg",
-      price: 320000,
-    },
-    {
-      id: "per-3",
-      title: "کباب بره",
-      image: "/images/jooj.jpg",
-      price: 380000,
-    },
-  ],
-  fastfood: [
-    {
-      id: "fast-1",
-      title: "برگر",
-      image: "/images/sandwich.jpg",
-      price: 270000,
-    },
-    {
-      id: "fast-2",
-      title: "پاستا",
-      image: "/images/pasta.jpg",
-      price: 235000,
-    },
-    {
-      id: "fast-3",
-      title: "پیتزا",
-      image: "/images/pizza.jpg",
-      price: 280000,
-    },
-  ],
-  drink: [
-    {
-      id: "drink-1",
-      title: "کوکا کولا",
-      image: "/images/cooca.webp",
-      price: 25000,
-    },
-    {
-      id: "drink-2",
-      title: "شربت سنتی",
-      image: "/images/syr.avif",
-      price: 15000,
-    },
-    {
-      id: "drink-3",
-      title: "سودا",
-      image: "/images/soda.jpg",
-      price: 100000,
-    },
-  ],
-};
+interface HomePageProps {
+  categories: Category[];
+  productsData: {
+    [key: string]: Product[];
+  };
+}
 const titleHandler = (title: string) => {
   switch (title) {
     case "appetizer":
@@ -165,13 +44,12 @@ const titleHandler = (title: string) => {
   }
 };
 
-const HomePage: React.FC = () => {
+const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("appetizer");
   const favorites = useStore((state) => state.favorites);
   const toggleFavorite = useStore((state) => state.toggleFavorite);
   const addToCart = useStore((state) => state.addToCart);
   const cart = useStore((state) => state.cart);
-  console.log(cart);
   const productsToDisplay: Product[] =
     selectedCategory === "favorites"
       ? favorites
@@ -221,9 +99,9 @@ const HomePage: React.FC = () => {
             {productsToDisplay.map((product, index) => (
               <motion.div
                 key={product.id}
-                initial={{ opacity: 0, y: 50 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 1, delay: index * 0.1 }} 
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: index * 0.1 }}
               >
                 <ProductCard
                   key={product.id}
@@ -240,5 +118,16 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const categories = require("../data/categories.json");
+  const productsData = require("../data/products.json");
 
+  return {
+    props: {
+      categories,
+      productsData,
+    },
+    revalidate: 60,
+  };
+};
 export default HomePage;

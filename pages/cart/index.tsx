@@ -2,9 +2,10 @@ import { useStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import StickyBackButton from "@/components/StickyBackButton";
+import CartItems from "@/components/CartItems";
 
 type DiscountState = {
   showInput: boolean;
@@ -14,8 +15,6 @@ type DiscountState = {
 };
 const Cart: React.FC = () => {
   const cart = useStore((state) => state.cart);
-  const addToCart = useStore((state) => state.addToCart);
-  const removeFromCart = useStore((state) => state.removeFromCart);
   const setFinalFee = useStore((state) => state.setFinalFee);
 
   const [discount, setDiscount] = useState<DiscountState>({
@@ -63,93 +62,9 @@ const Cart: React.FC = () => {
           </h2>
 
           <div className="flex w-full flex-col items-center justify-start gap-7 lg:col-span-2">
-            {cart?.map((item) => {
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: -50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                  className="w-full"
-                >
-                  <div className="flex w-full items-center justify-between gap-3 rounded-3xl bg-white dark:bg-gray-800 p-4 shadow-md border dark:border-gray-700">
-                    <div className="grid w-full grid-cols-[repeat(2,auto)] ">
-                      <div className="row-span-2 max-w-32 overflow-hidden rounded-xl border dark:border-gray-700">
-                        <Image
-                          className="w-full h-[70px] max-h-[70px] object-cover"
-                          src={item.image}
-                          height={70}
-                          width={70}
-                          alt={item.title}
-                        />
-                      </div>
-                      <div className="flex flex-col justify-around justify-self-end font-bold">
-                        <h3 className="text-nowra col-span-2 text-xl text-gray-500 dark:text-gray-300 mb-1">
-                          {item.title}
-                        </h3>
-                      </div>
-                      <div className="flex flex-col items-end justify-center lg:self-stretch">
-                        <div className="flex items-center justify-start gap-3">
-                          <div className="flex flex-col items-start">
-                            <div className="flex items-end justify-center gap-1">
-                              <span className="text-gray-400 dark:text-gray-200 text-sm">
-                                {item.price.toLocaleString()}{" "}
-                              </span>
-                              <span className="text-gray-400 dark:text-gray-200 text-sm">
-                                تومان
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center">
-                            <button
-                              onClick={() => addToCart(item)}
-                              className="rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 text-gray-400 dark:text-white p-0.5"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="h-4 w-4"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 5v14m-7-7h14"
-                                />
-                              </svg>
-                            </button>
-                            <div className="rounded-xl px-1.5 text-sm text-gray-400 dark:text-white">
-                              {item.quantity}
-                            </div>
-                            <button
-                              onClick={() => removeFromCart(item)}
-                              className="rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 text-gray-400 dark:text-white p-0.5"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="h-4 w-4"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M19 12H5"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+            {cart?.map((item) => (
+              <CartItems cartItem={item} key={item?.id}/>
+            ))}
           </div>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
