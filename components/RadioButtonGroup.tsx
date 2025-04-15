@@ -1,9 +1,9 @@
-import { makedTimeType, RadioOption } from "@/types";
+import { DeliveryTimeType, RadioOption } from "@/types";
 import { motion } from "framer-motion";
 
 interface RadioButtonGroup {
-  selectedOption: makedTimeType;
-  setSelectedOption: (item: makedTimeType) => void;
+  selectedOption: DeliveryTimeType;
+  setSelectedOption: (item: DeliveryTimeType) => void;
 }
 export default function RadioButtonGroup(props: RadioButtonGroup) {
   const options: RadioOption[] = [
