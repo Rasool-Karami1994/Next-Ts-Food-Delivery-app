@@ -15,16 +15,16 @@ const CheckoutPage: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
+    <div className="mx-auto bg-white dark:bg-gray-900 min-h-screen transition-colors duration-200">
       <StickyBackButton href="/cart" />
       {showModal ? (
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 0.2, delay: 0.2 }}
           className="w-full"
         >
-          <div className=" mx-auto p-4 bg-white dark:bg-gray-900 min-h-screen px-4 lg:px-10 transition-colors duration-300">
+          <div className=" mx-auto p-4 bg-white dark:bg-gray-900 min-h-screen px-4 lg:px-10 transition-colors duration-200">
             <div className="mx-auto w-[100%] md:w-[35%] bg-gray-200 dark:bg-gray-600 max-h-min border dark:border-gray-700 rounded-xl shadow-md py-[40px] px-4 flex flex-col justify-start items-center mt-20 gap-5">
               <svg
                 viewBox="0 0 512 512"
@@ -68,7 +68,7 @@ const CheckoutPage: React.FC = () => {
       ) : (
         <Fragment>
           <PaymentForm setDisableFinishButton={setDisableFinishButton} />
-          <div className="sticky bottom-0 z-50 py-3 px-4 flex justify-between items-center bg-white dark:bg-gray-800 border-t transition-colors duration-300">
+          <div className="sticky bottom-0 z-50 py-3 px-4 flex justify-between items-center bg-white dark:bg-gray-800 border-t transition-colors duration-200">
             <div className="flex items-center justify-center gap-2 text-sm md:text-base text-slate-600 dark:text-gray-300">
               <span>مبلغ قابل پرداخت:</span>
               {finalFee ? (

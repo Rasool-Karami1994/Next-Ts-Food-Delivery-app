@@ -22,7 +22,7 @@ const CartItems: React.FC<CartItemsProps> = ({ cartItem }) => {
     <motion.div
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.3 }}
+      transition={{ duration: 0.2, delay: 0.3 }}
       className="w-full"
     >
       <div className="flex w-full items-center justify-between gap-3 rounded-3xl bg-white dark:bg-gray-800 p-4 shadow-md border dark:border-gray-700">

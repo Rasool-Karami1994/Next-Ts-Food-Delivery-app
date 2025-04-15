@@ -16,10 +16,12 @@ interface StoreState {
   favorites: Product[];
   cart: CartItem[];
   finalFee: string;
+  dark: boolean;
   setFinalFee: (newValue: string) => void;
   toggleFavorite: (product: Product) => void;
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
+  setDark: (newValue: boolean) => void;
 }
 
 export const useStore = create<StoreState, [["zustand/persist", StoreState]]>(
@@ -28,6 +30,9 @@ export const useStore = create<StoreState, [["zustand/persist", StoreState]]>(
       favorites: [],
       cart: [],
       finalFee: "",
+      dark: false,
+      setDark: (newValue) => set({ dark: newValue }),
+
       setFinalFee: (newValue) => set({ finalFee: newValue }),
       toggleFavorite: (product: Product) => {
         const exists = get().favorites.find((item) => item.id === product.id);

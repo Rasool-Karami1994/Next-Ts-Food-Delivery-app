@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useStore } from "../store";
 import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface Category {
   id: string;
@@ -54,18 +55,10 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
       : productsData[selectedCategory] || [];
 
   const CategoryCard = dynamic(() => import("@/components/CategoryCard"), {
-    loading: () => (
-      <p className="text-center text-gray-500 dark:text-gray-300">
-        در حال بارگذاری...
-      </p>
-    ),
+    loading: () => <LoadingSpinner />,
   });
   const ProductCard = dynamic(() => import("@/components/ProductCard"), {
-    loading: () => (
-      <p className="text-center text-gray-500 dark:text-gray-300">
-        در حال بارگذاری...
-      </p>
-    ),
+    loading: () => <LoadingSpinner />,
   });
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-4">
@@ -113,7 +106,7 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
                 key={product.id}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: index * 0.1 }}
+                transition={{ duration: 0.2, delay: index * 0.1 }}
               >
                 <ProductCard
                   key={product.id}

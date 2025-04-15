@@ -144,7 +144,7 @@ const PaymentPage: React.FC<PaymentPage> = ({ setDisableFinishButton }) => {
                   alt={"time-icon"}
                 />
                 {selectedOption?.time ? (
-                  <p className="text-gray-600 dark:text-gray-200 text-sm duration-300">
+                  <p className="text-gray-600 dark:text-gray-200 text-sm duration-200">
                     {`${selectedOption?.day} ${selectedOption?.time}`}
                   </p>
                 ) : (
@@ -186,7 +186,7 @@ const PaymentPage: React.FC<PaymentPage> = ({ setDisableFinishButton }) => {
                         }
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1, delay: 0.5 }}
+                        transition={{ duration: 0.2, delay: 0.2 }}
                         className={`w-full flex flex-col justify-start gap-4 items-center rounded-lg p-8 border bg-white dark:bg-gray-600 cursor-pointer ${
                           selectedOption?.day === item
                             ? "border-gray-500 dark:border-white"

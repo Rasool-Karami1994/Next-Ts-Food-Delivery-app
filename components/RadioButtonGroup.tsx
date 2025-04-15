@@ -31,12 +31,12 @@ export default function RadioButtonGroup(props: RadioButtonGroup) {
 
   return (
     <div className="flex w-full  flex-col justify-start items-start gap-3 md:flex-row md:justify-evenly md:items-center bg-white dark:bg-gray-700">
-      {options.map((option) => (
+      {options.map((option, index) => (
         <motion.div
           key={option.id}
           initial={{ opacity: 0, x: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 0.2, delay: index * 0.05 }}
         >
           <div className="flex items-center">
             <input

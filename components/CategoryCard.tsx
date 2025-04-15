@@ -15,7 +15,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   return (
     <div
       onClick={() => onSelect(category.id)}
-      className={`cursor-pointer overflow-hidden rounded-lg relative border-2 hover:scale-105 hover:rotate-3 transition-transform duration-300 ${
+      className={`cursor-pointer overflow-hidden rounded-lg relative border-2 hover:scale-105 hover:rotate-3 transition-transform duration-200 ${
         isSelected ? "border-gray-500" : "border-transparent"
       }`}
     >
@@ -27,7 +27,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         className="w-full h-32 object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+      <div className="absolute inset-0 bg-black bg-opacity-35 flex items-center justify-center ">
         <span className="text-white font-semibold">{category.title}</span>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { toast } from "react-toastify";
 interface Product {
   id: string;
   title: string;
@@ -76,7 +77,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </p>
         <div className=" flex justify-end">
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={() => {
+              toast.success(`${product?.title} به سبد خرید شما افزوده شد`);
+              onAddToCart(product);
+            }}
             className="px-3 py-1 bg-orange-400 focus:outline-none text-white rounded hover:bg-orange-500 transition"
           >
             + افزودن

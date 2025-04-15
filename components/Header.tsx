@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const Header: React.FC = () => {
   const cart = useStore((state) => state.cart);
+  const setDark = useStore((state) => state.setDark);
 
   const badgeValue = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -25,10 +26,13 @@ const Header: React.FC = () => {
     if (document.documentElement.classList.contains("dark")) {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      setDark(false);
       setIsDark(false);
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      setDark(true);
+
       setIsDark(true);
     }
   };
