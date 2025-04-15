@@ -4,22 +4,8 @@ import { toJalaali } from "jalaali-js";
 import RadioButtonGroup from "./RadioButtonGroup";
 import { motion } from "framer-motion";
 import ClientInfoForm from "./ClientInfoForm";
+import { DeliveryFormValues, DeliveryMethod, makedTimeType } from "@/types";
 
-type DeliveryMethod = "delivery" | "bySelf";
-
-interface DeliveryFormValues {
-  customerName: string;
-  province: string;
-  city: string;
-  fullAddress: string;
-  postalCode: string;
-  mobile: string;
-}
-
-type makedTimeType = {
-  time: string;
-  day: string;
-};
 type PaymentPage = {
   setDisableFinishButton: (item: boolean) => void;
 };

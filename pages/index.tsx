@@ -4,19 +4,7 @@ import { useStore } from "../store";
 import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "@/components/LoadingSpinner";
-
-interface Category {
-  id: string;
-  title: string;
-  image: string;
-}
-
-interface Product {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-}
+import { Category, Product } from "@/types";
 
 interface HomePageProps {
   categories: Category[];

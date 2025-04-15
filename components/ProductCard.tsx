@@ -1,12 +1,8 @@
+import { Product } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { toast } from "react-toastify";
-interface Product {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-}
+
 interface ProductCardProps {
   product: Product;
   isFavorite: boolean;

@@ -1,14 +1,5 @@
+import { makedTimeType, RadioOption } from "@/types";
 import { motion } from "framer-motion";
-
-type RadioOption = {
-  id: string;
-  value: string;
-  label: string;
-};
-type makedTimeType = {
-  time: string;
-  day: string;
-};
 
 interface RadioButtonGroup {
   selectedOption: makedTimeType;

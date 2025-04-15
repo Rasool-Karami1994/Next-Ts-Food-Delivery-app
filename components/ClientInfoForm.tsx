@@ -1,14 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import React from "react";
-interface DeliveryFormValues {
-  customerName: string;
-  province: string;
-  city: string;
-  fullAddress: string;
-  postalCode: string;
-  mobile: string;
-}
+import { DeliveryFormValues } from "@/types";
 
 const deliveryInitialValues: DeliveryFormValues = {
   customerName: "",

@@ -5,13 +5,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import StickyBackButton from "@/components/StickyBackButton";
 import CartItems from "@/components/CartItems";
+import { DiscountState } from "@/types";
 
-type DiscountState = {
-  showInput: boolean;
-  code: string;
-  applied: boolean;
-  error: string;
-};
+
 const Cart: React.FC = () => {
   const cart = useStore((state) => state.cart);
   const setFinalFee = useStore((state) => state.setFinalFee);

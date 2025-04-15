@@ -2,17 +2,9 @@ import Image from "next/image";
 import React from "react";
 import { useStore } from "@/store";
 import { motion } from "framer-motion";
+import { CartItemsProps } from "@/types";
 
-interface Product {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-  quantity: number;
-}
-interface CartItemsProps {
-  cartItem: Product;
-}
+
 
 const CartItems: React.FC<CartItemsProps> = ({ cartItem }) => {
   const addToCart = useStore((state) => state.addToCart);
