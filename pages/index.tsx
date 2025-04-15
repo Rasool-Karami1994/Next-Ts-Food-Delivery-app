@@ -5,6 +5,7 @@ import { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Category, Product } from "@/types";
+import { categoryTitleHandler } from "@/utils/categoryTitleHandler";
 
 interface HomePageProps {
   categories: Category[];
@@ -12,25 +13,7 @@ interface HomePageProps {
     [key: string]: Product[];
   };
 }
-const titleHandler = (title: string) => {
-  switch (title) {
-    case "appetizer":
-      return "پیش غذا";
-    case "dessert":
-      return "دسر";
-    case "persian":
-      return "غذاایرانی";
-    case "fastfood":
-      return "فست فود";
-    case "drink":
-      return "نوشیدنی";
-    case "favorites":
-      return "علاقه مندی ها";
 
-    default:
-      break;
-  }
-};
 
 const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("appetizer");
@@ -66,7 +49,7 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
         </div>
       </div>
       <h2 className="text-3xl font-bold text-gray-600 dark:text-white my-6 mt-16">
-        {titleHandler(selectedCategory)}
+        {categoryTitleHandler(selectedCategory)}
       </h2>
       <div>
         {selectedCategory === "favorites" && favorites.length === 0 ? (

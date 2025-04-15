@@ -40,4 +40,9 @@ export type RadioOption = {
   label: string;
 };
 
-
+export interface DiscountState {
+  showInput: boolean;
+  code: string;
+  applied: boolean;
+  error: string;
+}

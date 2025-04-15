@@ -6,20 +6,21 @@ import { motion } from "framer-motion";
 import StickyBackButton from "@/components/StickyBackButton";
 import CartItems from "@/components/CartItems";
 import { DiscountState } from "@/types";
-
+import {
+  validateDiscountCode,
+  calculateDiscountAmount,
+  DEFAULT_DISCOUNT_STATE,
+} from "@/utils/discount";
 
 const Cart: React.FC = () => {
   const cart = useStore((state) => state.cart);
   const setFinalFee = useStore((state) => state.setFinalFee);
 
-  const [discount, setDiscount] = useState<DiscountState>({
-    showInput: false,
-    code: "",
-    applied: false,
-    error: "",
-  });
+  const [discount, setDiscount] = useState<DiscountState>(
+    DEFAULT_DISCOUNT_STATE
+  );
 
-  const discountAmount = discount?.applied ? 50000 : 0;
+  const discountAmount = calculateDiscountAmount(discount);
 
   const value = cart.reduce(
     (sum, item) =>
@@ -30,15 +31,19 @@ const Cart: React.FC = () => {
   const finalValue = value + deliveryFee - discountAmount;
 
   const checkDiscountCode = () => {
-    const discountRegex = /^discount$/i;
-    if (discountRegex.test(discount?.code)) {
-      setDiscount((prevState) => {
-        return { ...prevState, showInput: false, applied: true, error: "" };
-      });
+    const result = validateDiscountCode(discount.code);
+    if (result.isValid) {
+      setDiscount((prevState) => ({
+        ...prevState,
+        showInput: false,
+        applied: true,
+        error: "",
+      }));
     } else {
-      setDiscount((prevState) => {
-        return { ...prevState, error: "کد تخفیف وارد شده صحیح نیست!" };
-      });
+      setDiscount((prevState) => ({
+        ...prevState,
+        error: result.errorMessage || "",
+      }));
     }
   };
 
@@ -47,14 +52,13 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto  bg-white dark:bg-gray-900 min-h-screen ">
+    <div className="mx-auto bg-white dark:bg-gray-900 min-h-screen pb-4">
       <StickyBackButton href="/" />
       {cart?.length > 0 ? (
         <div className="mt-10 grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-3 px-4 lg:px-10">
           <h2 className="justify-self-center font-extrabold text-2xl text-gray-600 dark:text-white md:col-span-2 md:justify-self-start lg:col-span-3">
             سبد خرید شما
           </h2>
-
           <div className="flex w-full flex-col items-center justify-start gap-7 lg:col-span-2">
             {cart?.map((item) => (
               <CartItems cartItem={item} key={item?.id} />
@@ -107,9 +111,10 @@ const Cart: React.FC = () => {
                 {!discount?.applied && !discount?.showInput && (
                   <button
                     onClick={() =>
-                      setDiscount((prevState) => {
-                        return { ...prevState, showInput: true };
-                      })
+                      setDiscount((prevState) => ({
+                        ...prevState,
+                        showInput: true,
+                      }))
                     }
                     className="p-3 text-xs font-bold text-gray-400 dark:text-gray-200 duration-200 hover:scale-105"
                   >
@@ -122,13 +127,11 @@ const Cart: React.FC = () => {
                       type="text"
                       value={discount?.code}
                       onChange={(e) => {
-                        setDiscount((prevState) => {
-                          return {
-                            ...prevState,
-                            error: "",
-                            code: e.target.value,
-                          };
-                        });
+                        setDiscount((prevState) => ({
+                          ...prevState,
+                          error: "",
+                          code: e.target.value,
+                        }));
                       }}
                       placeholder="کد تخفیف را وارد کنید (مقدار صحیح: discount)"
                       className={`w-full rounded-xl p-2 text-sm border ${
@@ -137,12 +140,11 @@ const Cart: React.FC = () => {
                           : "border-gray-300 dark:border-gray-700"
                       } dark:bg-gray-700 dark:text-white`}
                     />
-                    {discount?.error ? (
+                    {discount?.error && (
                       <span className="text-xs text-red-500">
-                        {discount?.error}
+                        {discount.error}
                       </span>
-                    ) : null}
-
+                    )}
                     <button
                       onClick={checkDiscountCode}
                       className="flex h-[60px] w-full items-center justify-center gap-3 rounded-3xl bg-gray-400 p-3 text-white duration-200 hover:bg-gray-500"
@@ -151,12 +153,11 @@ const Cart: React.FC = () => {
                     </button>
                   </div>
                 )}
-                {discount?.applied && !discount?.showInput ? (
+                {discount?.applied && !discount?.showInput && (
                   <p className="p-3 text-xs font-bold text-gray-400 dark:text-gray-200 ">
                     کد تخفیف اعمال شد
                   </p>
-                ) : null}
-
+                )}
                 <Link
                   href="/checkout"
                   onClick={navigateToCheckout}
