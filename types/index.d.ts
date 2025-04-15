@@ -30,7 +30,7 @@ export interface DeliveryFormValues {
 }
 export type DeliveryMethod = "delivery" | "bySelf";
 
-export type makedTimeType = {
+export type DeliveryTimeType = {
   time: string;
   day: string;
 };
