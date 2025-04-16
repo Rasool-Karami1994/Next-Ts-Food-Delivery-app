@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useStore } from "../store";
 import { GetStaticProps } from "next";
@@ -13,7 +13,6 @@ interface HomePageProps {
     [key: string]: Product[];
   };
 }
-
 
 const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("appetizer");
@@ -31,6 +30,12 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   const ProductCard = dynamic(() => import("@/components/ProductCard"), {
     loading: () => <LoadingSpinner />,
   });
+  const productsRef = useRef<HTMLDivElement>(null);
+  const handleCategoryClick = (value: string) => {
+    // اسکرول با حالت smooth
+    productsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setSelectedCategory(value);
+  };
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 p-4">
       <div className="mb-8">
@@ -43,12 +48,15 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
               key={category.id}
               category={category}
               isSelected={selectedCategory === category.id}
-              onSelect={setSelectedCategory}
+              onSelect={handleCategoryClick}
             />
           ))}
         </div>
       </div>
-      <h2 className="text-3xl font-bold text-gray-600 dark:text-white my-6 mt-16">
+      <h2
+        ref={productsRef}
+        className="text-3xl font-bold text-gray-600 dark:text-white my-6 mt-16"
+      >
         {categoryTitleHandler(selectedCategory)}
       </h2>
       <div>
