@@ -32,7 +32,6 @@ const HomePage: React.FC<HomePageProps> = ({ categories, productsData }) => {
   });
   const productsRef = useRef<HTMLDivElement>(null);
   const handleCategoryClick = (value: string) => {
-    // اسکرول با حالت smooth
     productsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setSelectedCategory(value);
   };
